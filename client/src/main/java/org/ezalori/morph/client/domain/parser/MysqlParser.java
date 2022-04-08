@@ -235,7 +235,7 @@ public class MysqlParser implements Parser {
         .append(column.getValue())
         .append(COMMA);
 
-      if (column.getIsKey() && keyStr != NONE_STR) {
+      if (column.getIsKey() && !NONE_STR.equals(keyStr)) {
         keyStrBuilder.append(column.getName())
           .append(EQUALS)
           .append(column.getValue());
