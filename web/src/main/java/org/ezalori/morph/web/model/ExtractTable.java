@@ -1,11 +1,13 @@
 package org.ezalori.morph.web.model;
 
-import java.util.List;
+import java.util.Date;
+
 import lombok.Data;
-import org.joda.time.DateTime;
+import org.springframework.data.annotation.Id;
 
 @Data
 public class ExtractTable {
+  @Id
   private Integer id;
   private Integer sourceInstance;
   private String sourceDatabase;
@@ -13,7 +15,7 @@ public class ExtractTable {
   private Integer targetInstance;
   private String targetDatabase;
   private String targetTable;
-  private List<ExtractColumn> columns;
-  private DateTime createTime;
-  private DateTime updateTime;
+  private String columnList;
+  private Date createdAt;
+  private Date updatedAt;
 }

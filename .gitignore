@@ -7,6 +7,3 @@ target/
 # IDE
 .idea/
 *.iml
-
-# H2 database
-*.db

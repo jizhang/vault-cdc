@@ -10,16 +10,8 @@ import org.springframework.context.annotation.PropertySource;
  * Created by hey on 02/05/2018.
  */
 @SpringBootApplication
-@PropertySource(value = { "classpath:config.properties" })
-public class WebApplication extends SpringBootServletInitializer {
-
-  @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-    return builder.sources(WebApplication.class);
-  }
-
+public class WebApplication {
   public static void main(String[] args) {
     SpringApplication.run(WebApplication.class, args);
   }
-
 }

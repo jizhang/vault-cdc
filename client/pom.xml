@@ -16,49 +16,14 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.alibaba.otter</groupId>
       <artifactId>canal.client</artifactId>
+      <version>1.0.12</version>
     </dependency>
-
-    <!-- lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.5.2</version>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>org.ezalori.morph.client.Main</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <!-- this is used for inheritance merges -->
-            <phase>package</phase>
-            <!-- bind to the packaging phase -->
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
-
 </project>
