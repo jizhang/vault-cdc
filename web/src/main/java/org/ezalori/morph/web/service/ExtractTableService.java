@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import org.ezalori.morph.web.repository.DatabaseInstanceRepository;
+import org.ezalori.morph.web.repository.ExtractTableRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ExtractTableService {
   private final DatabaseInstanceRepository instanceRepo;
+  private final ExtractTableRepository tableRepo;
 
   public List<String> getColumns(
       Integer sourceInstance, String sourceDatabase, String sourceTable) {
