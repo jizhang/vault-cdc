@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by hey on 26/04/2018.
  */
 @Controller
-public class BasicController {
+public class CommonController {
   @RequestMapping(value = "/ping")
   @ResponseBody
-  public Object ping() {
+  public String ping() {
     return "pong";
   }
 }
