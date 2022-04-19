@@ -13,6 +13,6 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(AppException.class)
   public Map<String, Object> handleAppException(AppException e) {
-    return Map.of("message", e.getMessage());
+    return Map.of("status", e.getStatus(), "message", e.getMessage());
   }
 }
