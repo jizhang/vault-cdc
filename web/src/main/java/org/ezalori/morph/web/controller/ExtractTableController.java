@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 import javax.validation.Valid;
 
+import com.google.common.collect.Iterables;
 import lombok.RequiredArgsConstructor;
 import org.ezalori.morph.web.AppException;
 import org.ezalori.morph.web.form.ExtractTableForm;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/table")
 @RequiredArgsConstructor
-public class TableController {
+public class ExtractTableController {
   private final ExtractTableRepository tableRepo;
   private final ExtractTableService tableService;
 
@@ -65,7 +66,7 @@ public class TableController {
       throw new AppException("Table ID not found.");
     }
     tableRepo.deleteById(id);
-    return Map.of("status", "ok");
+    return Map.of("id", id);
   }
 
   @GetMapping("/columns")

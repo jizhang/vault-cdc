@@ -11,10 +11,6 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>morph-web</artifactId>
 
-  <properties>
-    <failOnMissingWebXml>false</failOnMissingWebXml>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
