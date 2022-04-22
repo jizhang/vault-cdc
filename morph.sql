@@ -1,4 +1,4 @@
-create table morph.extract_table (
+create table extract_table (
   id int primary key auto_increment
   ,source_instance int not null
   ,source_database varchar(255) not null
@@ -11,7 +11,7 @@ create table morph.extract_table (
   ,updated_at timestamp not null default current_timestamp on update current_timestamp
 );
 
-create table morph.database_instance (
+create table database_instance (
   id int primary key auto_increment
   ,name varchar(255) not null
   ,host varchar(255) not null
@@ -20,4 +20,13 @@ create table morph.database_instance (
   ,password varchar(255) not null
   ,created_at datetime not null
   ,updated_at timestamp not null default current_timestamp on update current_timestamp
+);
+
+create table user (
+  id int not null primary key auto_increment
+  ,username varchar(255) not null
+  ,password varchar(255) not null
+  ,created_at datetime not null
+  ,updated_at timestamp not null default current_timestamp on update current_timestamp
+  ,unique key uk_username (username)
 );
