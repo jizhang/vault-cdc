@@ -20,6 +20,7 @@ public class WebApplication {
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http.authorizeRequests()
+      .antMatchers("/api/login").permitAll()
       .antMatchers("/api/**").authenticated()
       .and().httpBasic().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
       .and().csrf().disable()

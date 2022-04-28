@@ -3,11 +3,11 @@ package org.ezalori.morph.web.model;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
@@ -42,5 +42,9 @@ public class User implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  public Map<String, Object> toCurrentUser() {
+    return Map.of("id", id, "username", username);
   }
 }

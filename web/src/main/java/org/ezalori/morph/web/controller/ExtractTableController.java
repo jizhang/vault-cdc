@@ -10,10 +10,15 @@ import org.ezalori.morph.web.form.ExtractTableForm;
 import org.ezalori.morph.web.model.ExtractTable;
 import org.ezalori.morph.web.repository.ExtractTableRepository;
 import org.ezalori.morph.web.service.ExtractTableService;
+import org.ezalori.morph.web.utils.FormUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/table")
@@ -38,9 +43,7 @@ public class ExtractTableController {
 
   @PostMapping("/save")
   public Map<String, Object> save(@Valid ExtractTableForm tableForm, BindingResult bindingResult) {
-    if (bindingResult.hasErrors()) {
-      throw new AppException(bindingResult.toString());
-    }
+    FormUtils.checkBindingErrors(bindingResult);
 
     ExtractTable table;
     if (tableForm.getId() != null) {

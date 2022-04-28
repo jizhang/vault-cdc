@@ -10,6 +10,7 @@ import org.ezalori.morph.web.form.DatabaseInstanceForm;
 import org.ezalori.morph.web.model.DatabaseInstance;
 import org.ezalori.morph.web.repository.DatabaseInstanceRepository;
 import org.ezalori.morph.web.repository.ExtractTableRepository;
+import org.ezalori.morph.web.utils.FormUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
@@ -34,9 +35,7 @@ public class DatabaseInstanceController {
 
   @PostMapping("/save")
   public Map<String, Object> saveDb(@Valid DatabaseInstanceForm dbForm, BindingResult bindingResult) {
-    if (bindingResult.hasErrors()) {
-      throw new AppException(bindingResult.getAllErrors().toString());
-    }
+    FormUtils.checkBindingErrors(bindingResult);
 
     DatabaseInstance db;
     if (dbForm.getId() != null) {
