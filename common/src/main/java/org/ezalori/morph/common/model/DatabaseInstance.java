@@ -1,4 +1,4 @@
-package org.ezalori.morph.web.model;
+package org.ezalori.morph.common.model;
 
 import java.util.Date;
 

@@ -1,7 +1,11 @@
 package org.ezalori.morph.cdc;
 
+import org.ezalori.morph.common.repository.ExtractTableRepository;
+
 public class ExtractCdc {
   public static void main(String[] args) {
-    System.out.println(CdcApplication.getInstance().getBean(String.class));
+    var context = CdcApplication.getInstance();
+    var tableRepo = context.getBean(ExtractTableRepository.class);
+    System.out.println(tableRepo.count());
   }
 }
