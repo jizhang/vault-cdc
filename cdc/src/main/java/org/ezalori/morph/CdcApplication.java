@@ -1,14 +1,10 @@
-package org.ezalori.morph.cdc;
+package org.ezalori.morph;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 
-@SpringBootApplication(scanBasePackages = "org.ezalori.morph")
-@EntityScan("org.ezalori.morph")
-@EnableJdbcRepositories("org.ezalori.morph")
+@SpringBootApplication
 public class CdcApplication {
   private static class Holder {
     static final ApplicationContext INSTANCE = SpringApplication.run(CdcApplication.class);

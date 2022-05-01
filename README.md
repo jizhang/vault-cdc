@@ -13,4 +13,4 @@ mvn verify
 mvn clean package -am -pl web
 ```
 
-Import `morph-web` into IDE, run `org.ezalori.morph.web.WebApplication`, and it will start an API server listening on port `8081`.
+Import `morph-web` into IDE, run `org.ezalori.morph.WebApplication`, and it will start an API server listening on port `8081`.
