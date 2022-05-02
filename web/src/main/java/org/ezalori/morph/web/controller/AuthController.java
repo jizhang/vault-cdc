@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.ezalori.morph.web.AppException;
-import org.ezalori.morph.web.utils.FormUtils;
 import org.ezalori.morph.web.form.LoginForm;
 import org.ezalori.morph.web.model.User;
+import org.ezalori.morph.web.utils.FormUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class AuthController {
   @PostMapping("/login")
-  public Map<String, Object> login(@Valid LoginForm form, BindingResult bindingResult, HttpServletRequest request) {
+  public Map<String, Object> login(@Valid LoginForm form, BindingResult bindingResult,
+                                   HttpServletRequest request) {
     FormUtils.checkBindingErrors(bindingResult);
 
     try {

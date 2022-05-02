@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExtractTableRepository extends PagingAndSortingRepository<ExtractTable, Integer> {
-  @Query("SELECT COUNT(*) FROM extract_table WHERE source_instance = :dbId OR target_instance = :dbId")
+  @Query("SELECT COUNT(*) FROM extract_table"
+      + " WHERE source_instance = :dbId OR target_instance = :dbId")
   int countByDbId(@Param("dbId") int dbId);
 }

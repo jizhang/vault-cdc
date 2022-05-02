@@ -17,21 +17,21 @@ public class ExtractCdc {
     log.info("count: {}", tableRepo.count());
 
     var mysqlSource = MySqlSource.<String>builder()
-      .hostname("localhost")
-      .port(3306)
-      .databaseList("morph")
-      .tableList("morph\\..+")
-      .username("root")
-      .password("")
-      .deserializer(new JsonDebeziumDeserializationSchema())
-      .startupOptions(StartupOptions.latest())
-      .build();
+        .hostname("localhost")
+        .port(3306)
+        .databaseList("morph")
+        .tableList("morph\\..+")
+        .username("root")
+        .password("")
+        .deserializer(new JsonDebeziumDeserializationSchema())
+        .startupOptions(StartupOptions.latest())
+        .build();
 
     var env = StreamExecutionEnvironment.getExecutionEnvironment();
     env.enableCheckpointing(3000);
     env.fromSource(mysqlSource, WatermarkStrategy.noWatermarks(), "source")
-      .setParallelism(4)
-      .print().setParallelism(1);
+        .setParallelism(4)
+        .print().setParallelism(1);
 
     env.execute();
   }

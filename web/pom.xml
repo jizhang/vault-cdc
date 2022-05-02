@@ -4,8 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <groupId>org.ezalori.morph</groupId>
-    <artifactId>morph-parent</artifactId>
+    <artifactId>morph-boot-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <relativePath>../boot-parent</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -34,4 +35,13 @@
       <artifactId>guava</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>

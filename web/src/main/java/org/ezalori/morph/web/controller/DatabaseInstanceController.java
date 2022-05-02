@@ -5,11 +5,11 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
+import org.ezalori.morph.common.model.DatabaseInstance;
+import org.ezalori.morph.common.repository.DatabaseInstanceRepository;
 import org.ezalori.morph.common.repository.ExtractTableRepository;
 import org.ezalori.morph.web.AppException;
 import org.ezalori.morph.web.form.DatabaseInstanceForm;
-import org.ezalori.morph.common.model.DatabaseInstance;
-import org.ezalori.morph.common.repository.DatabaseInstanceRepository;
 import org.ezalori.morph.web.utils.FormUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
@@ -34,7 +34,8 @@ public class DatabaseInstanceController {
   }
 
   @PostMapping("/save")
-  public Map<String, Object> saveDb(@Valid DatabaseInstanceForm dbForm, BindingResult bindingResult) {
+  public Map<String, Object> saveDb(@Valid DatabaseInstanceForm dbForm,
+      BindingResult bindingResult) {
     FormUtils.checkBindingErrors(bindingResult);
 
     DatabaseInstance db;

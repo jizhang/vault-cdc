@@ -11,7 +11,9 @@ public class FormUtils {
 
     var message = new StringBuilder();
     for (var error : bindingResult.getGlobalErrors()) {
-      message.append(error.getObjectName()).append(": ").append(error.getDefaultMessage()).append("\n");
+      message.append(error.getObjectName())
+          .append(": ").append(error.getDefaultMessage())
+          .append("\n");
     }
 
     for (var error : bindingResult.getFieldErrors()) {

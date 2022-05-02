@@ -3,8 +3,8 @@ package org.ezalori.morph.common.service;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
-import org.ezalori.morph.common.repository.ExtractTableRepository;
 import org.ezalori.morph.common.repository.DatabaseInstanceRepository;
+import org.ezalori.morph.common.repository.ExtractTableRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;

@@ -7,9 +7,9 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.ezalori.morph.common.model.ExtractTable;
 import org.ezalori.morph.common.repository.ExtractTableRepository;
+import org.ezalori.morph.common.service.ExtractTableService;
 import org.ezalori.morph.web.AppException;
 import org.ezalori.morph.web.form.ExtractTableForm;
-import org.ezalori.morph.common.service.ExtractTableService;
 import org.ezalori.morph.web.utils.FormUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
@@ -47,7 +47,8 @@ public class ExtractTableController {
 
     ExtractTable table;
     if (tableForm.getId() != null) {
-      table = tableRepo.findById(tableForm.getId()).orElseThrow(() -> new AppException("Table ID not found."));
+      table = tableRepo.findById(tableForm.getId())
+          .orElseThrow(() -> new AppException("Table ID not found."));
     } else {
       table = new ExtractTable();
       table.setCreatedAt(new Date());
