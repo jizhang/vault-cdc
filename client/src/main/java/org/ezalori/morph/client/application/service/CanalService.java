@@ -22,7 +22,7 @@ public interface CanalService {
   /**
    * acquire message from canal-server and parse into Collections of ActionInfoDto.
    *
-   * @return
+   * @return batch of action info
    */
   ActionDto messageToSql() throws SQLException;
 

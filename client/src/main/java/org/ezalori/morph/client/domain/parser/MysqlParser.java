@@ -5,12 +5,10 @@ import com.alibaba.otter.canal.protocol.CanalEntry.EventType;
 import com.alibaba.otter.canal.protocol.CanalEntry.Header;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowChange;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.ezalori.morph.client.domain.mysql.MysqlMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,14 +107,14 @@ public class MysqlParser implements Parser {
                              StringBuilder updateValueBuilder, String name, String value,
                              String type) {
     columnNamesBuilder.append(name)
-      .append(COMMA);
+        .append(COMMA);
     value = valueCheck(type, value);
     valuesBuilder.append(value)
-      .append(COMMA);
+        .append(COMMA);
     updateValueBuilder.append(name)
-      .append(EQUALS)
-      .append(value)
-      .append(COMMA);
+        .append(EQUALS)
+        .append(value)
+        .append(COMMA);
   }
 
   protected String sqlJoin(StringBuilder columnNamesBuilder, StringBuilder valuesBuilder,
@@ -191,8 +189,8 @@ public class MysqlParser implements Parser {
 
       if (column.getIsKey() && (!keyStr.equals(NONE_STR))) {
         keyStrBuilder.append(column.getName())
-          .append(EQUALS)
-          .append(column.getValue());
+            .append(EQUALS)
+            .append(column.getValue());
         keyStr = keyStrBuilder.toString();
         break;
       }
@@ -210,9 +208,9 @@ public class MysqlParser implements Parser {
 
     for (CanalEntry.Column column : rowData.getAfterColumnsList()) {
       columnNamesBuilder.append(column.getName())
-        .append(COMMA);
+          .append(COMMA);
       valuesBuilder.append(column.getValue())
-        .append(COMMA);
+          .append(COMMA);
     }
 
     String columnNames = columnNamesBuilder.substring(0, columnNamesBuilder.length() - 1);
@@ -231,14 +229,14 @@ public class MysqlParser implements Parser {
 
     for (CanalEntry.Column column : rowData.getAfterColumnsList()) {
       updateValuesBuilder.append(column.getName())
-        .append(EQUALS)
-        .append(column.getValue())
-        .append(COMMA);
+          .append(EQUALS)
+          .append(column.getValue())
+          .append(COMMA);
 
       if (column.getIsKey() && !NONE_STR.equals(keyStr)) {
         keyStrBuilder.append(column.getName())
-          .append(EQUALS)
-          .append(column.getValue());
+            .append(EQUALS)
+            .append(column.getValue());
       }
 
     }

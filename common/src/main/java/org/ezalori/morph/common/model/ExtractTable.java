@@ -1,7 +1,6 @@
 package org.ezalori.morph.common.model;
 
 import java.util.Date;
-
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 

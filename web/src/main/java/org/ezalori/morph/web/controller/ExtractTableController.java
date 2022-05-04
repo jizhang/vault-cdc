@@ -3,7 +3,6 @@ package org.ezalori.morph.web.controller;
 import java.util.Date;
 import java.util.Map;
 import javax.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 import org.ezalori.morph.common.model.ExtractTable;
 import org.ezalori.morph.common.repository.ExtractTableRepository;

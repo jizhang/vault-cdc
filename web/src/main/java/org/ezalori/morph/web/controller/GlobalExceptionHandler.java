@@ -1,7 +1,6 @@
 package org.ezalori.morph.web.controller;
 
 import java.util.Map;
-
 import org.ezalori.morph.web.AppException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -4,7 +4,6 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.ezalori.morph.web.AppException;
 import org.ezalori.morph.web.form.LoginForm;
 import org.ezalori.morph.web.model.User;

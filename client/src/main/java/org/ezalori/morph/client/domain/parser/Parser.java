@@ -2,7 +2,6 @@ package org.ezalori.morph.client.domain.parser;
 
 import com.alibaba.otter.canal.protocol.CanalEntry.Header;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowChange;
-
 import java.sql.SQLException;
 import java.util.List;
 

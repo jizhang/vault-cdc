@@ -1,7 +1,6 @@
 package org.ezalori.morph.web.form;
 
 import javax.validation.constraints.NotBlank;
-
 import lombok.Data;
 
 @Data

@@ -123,7 +123,7 @@ public class CanalServiceImpl implements CanalService {
    * Parsing entries into Collections of ActionInfoDto.
    *
    * @param entries canalEntry.Entry
-   * @return
+   * @return batch of action info
    */
   private List<ActionInfoDto> getSqlFromEntries(List<Entry> entries)
       throws SQLException {
