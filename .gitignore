@@ -3,6 +3,7 @@
 
 # Java
 target/
+dependency-reduced-pom.xml
 
 # IDE
 .idea/

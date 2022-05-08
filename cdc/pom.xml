@@ -23,6 +23,10 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+    </dependency>
+    <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.21</version>
@@ -47,16 +51,27 @@
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-table-api-java-bridge_${scala.binary.version}</artifactId>
       <version>${flink.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>2.17.2</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
         <configuration>
-          <layout>NONE</layout>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <mainClass>org.ezalori.morph.cdc.ExtractCdc</mainClass>
+            </transformer>
+          </transformers>
         </configuration>
       </plugin>
     </plugins>
