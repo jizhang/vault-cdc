@@ -39,9 +39,9 @@ public class AuthController {
 
   @Operation(summary = "Logout user.")
   @PostMapping("/logout")
-  public EmptyResponse logout(HttpServletRequest request) throws ServletException {
+  public LogoutResponse logout(HttpServletRequest request) throws ServletException {
     request.logout();
-    return new EmptyResponse();
+    return new LogoutResponse();
   }
 
   @Operation(summary = "Get current logged-in user.")
@@ -55,12 +55,11 @@ public class AuthController {
   }
 
   @Value
-  public static class CurrentUser {
+  static class CurrentUser {
     int id;
     String username;
   }
 
   @Value
-  public static class EmptyResponse {}
+  static class LogoutResponse {}
 }
-

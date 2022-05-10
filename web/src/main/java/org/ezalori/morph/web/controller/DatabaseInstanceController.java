@@ -1,7 +1,6 @@
 package org.ezalori.morph.web.controller;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +38,7 @@ public class DatabaseInstanceController {
 
   @Operation(summary = "Save database instance.")
   @PostMapping("/save")
-  public IdResponse saveDb(@Valid DatabaseInstanceForm dbForm,
+  public SaveResponse saveDb(@Valid DatabaseInstanceForm dbForm,
       BindingResult bindingResult) {
     FormUtils.checkBindingErrors(bindingResult);
 
@@ -57,12 +56,12 @@ public class DatabaseInstanceController {
 
     BeanUtils.copyProperties(dbForm, db);
     dbRepo.save(db);
-    return new IdResponse(db.getId());
+    return new SaveResponse(db.getId());
   }
 
   @Operation(summary = "Delete database instance by ID.")
   @PostMapping("/delete")
-  public IdResponse deleteDb(@RequestParam("id") Integer id) {
+  public DeleteResponse deleteDb(@RequestParam("id") Integer id) {
     if (!dbRepo.existsById(id)) {
       throw new AppException("DB not found.");
     }
@@ -72,16 +71,21 @@ public class DatabaseInstanceController {
     }
 
     dbRepo.deleteById(id);
-    return new IdResponse(id);
+    return new DeleteResponse(id);
   }
 
   @Value
-  public static class ListResponse {
+  static class ListResponse {
     List<DatabaseInstance> dbList;
   }
 
   @Value
-  public static class IdResponse {
+  static class SaveResponse {
+    int id;
+  }
+
+  @Value
+  static class DeleteResponse {
     int id;
   }
 }

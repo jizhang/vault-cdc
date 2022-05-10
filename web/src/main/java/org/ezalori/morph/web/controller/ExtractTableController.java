@@ -47,7 +47,7 @@ public class ExtractTableController {
 
   @Operation(summary = "Create or update extract table.")
   @PostMapping("/save")
-  public IdResponse save(@Valid ExtractTableForm tableForm, BindingResult bindingResult) {
+  public SaveResponse save(@Valid ExtractTableForm tableForm, BindingResult bindingResult) {
     FormUtils.checkBindingErrors(bindingResult);
 
     ExtractTable table;
@@ -60,17 +60,17 @@ public class ExtractTableController {
     }
     BeanUtils.copyProperties(tableForm, table);
     tableRepo.save(table);
-    return new IdResponse(table.getId());
+    return new SaveResponse(table.getId());
   }
 
   @Operation(summary = "Delete extract table by ID.")
   @PostMapping("/delete")
-  public IdResponse delete(@RequestParam("id") Integer id) {
+  public DeleteResponse delete(@RequestParam("id") Integer id) {
     if (!tableRepo.existsById(id)) {
       throw new AppException("Table ID not found.");
     }
     tableRepo.deleteById(id);
-    return new IdResponse(id);
+    return new DeleteResponse(id);
   }
 
   @Operation(summary = "Get column list from source table.")
@@ -83,23 +83,28 @@ public class ExtractTableController {
   }
 
   @Value
-  public static class ListResponse {
+  static class ListResponse {
     List<ExtractTable> tables;
   }
 
   @Value
-  public static class IdResponse {
-    int id;
-  }
-
-  @Value
-  public static class GetResponse {
+  static class GetResponse {
     ExtractTable table;
     List<String> columns;
   }
 
   @Value
-  public static class ColumnsResponse {
+  static class SaveResponse {
+    int id;
+  }
+
+  @Value
+  static class DeleteResponse {
+    int id;
+  }
+
+  @Value
+  static class ColumnsResponse {
     List<String> columns;
   }
 }
