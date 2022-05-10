@@ -1,9 +1,13 @@
 package org.ezalori.morph.web.controller;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.ezalori.morph.common.model.DatabaseInstance;
 import org.ezalori.morph.common.repository.DatabaseInstanceRepository;
 import org.ezalori.morph.common.repository.ExtractTableRepository;
@@ -26,14 +30,16 @@ public class DatabaseInstanceController {
   private final DatabaseInstanceRepository dbRepo;
   private final ExtractTableRepository tableRepo;
 
+  @Operation(summary = "Get database instances.")
   @GetMapping("/list")
-  public Map<String, Object> getDbList() {
+  public ListResponse getDbList() {
     var dbList = dbRepo.findAll(Sort.by("name").ascending());
-    return Map.of("dbList", dbList);
+    return new ListResponse(ImmutableList.copyOf(dbList));
   }
 
+  @Operation(summary = "Save database instance.")
   @PostMapping("/save")
-  public Map<String, Object> saveDb(@Valid DatabaseInstanceForm dbForm,
+  public IdResponse saveDb(@Valid DatabaseInstanceForm dbForm,
       BindingResult bindingResult) {
     FormUtils.checkBindingErrors(bindingResult);
 
@@ -51,11 +57,12 @@ public class DatabaseInstanceController {
 
     BeanUtils.copyProperties(dbForm, db);
     dbRepo.save(db);
-    return Map.of("id", db.getId());
+    return new IdResponse(db.getId());
   }
 
+  @Operation(summary = "Delete database instance by ID.")
   @PostMapping("/delete")
-  public Map<String, Object> deleteDb(@RequestParam("id") Integer id) {
+  public IdResponse deleteDb(@RequestParam("id") Integer id) {
     if (!dbRepo.existsById(id)) {
       throw new AppException("DB not found.");
     }
@@ -65,6 +72,16 @@ public class DatabaseInstanceController {
     }
 
     dbRepo.deleteById(id);
-    return Map.of("id", id);
+    return new IdResponse(id);
+  }
+
+  @Value
+  public static class ListResponse {
+    List<DatabaseInstance> dbList;
+  }
+
+  @Value
+  public static class IdResponse {
+    int id;
   }
 }

@@ -2,7 +2,6 @@ package org.ezalori.morph;
 
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -30,11 +29,8 @@ public class CdcApplication extends AbstractJdbcConfiguration {
     return Holder.INSTANCE;
   }
 
-  @Autowired
-  Environment env;
-
   @Bean
-  DataSource dataSource() {
+  DataSource dataSource(Environment env) {
     var ds = new HikariDataSource();
     ds.setJdbcUrl(env.getProperty("spring.datasource.url"));
     ds.setUsername(env.getProperty("spring.datasource.username"));

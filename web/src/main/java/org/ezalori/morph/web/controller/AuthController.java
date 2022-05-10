@@ -1,9 +1,10 @@
 package org.ezalori.morph.web.controller;
 
-import java.util.Map;
+import io.swagger.v3.oas.annotations.Operation;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import lombok.Value;
 import org.ezalori.morph.web.AppException;
 import org.ezalori.morph.web.form.LoginForm;
 import org.ezalori.morph.web.model.User;
@@ -19,9 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class AuthController {
+  @Operation(summary = "Login user.")
   @PostMapping("/login")
-  public Map<String, Object> login(@Valid LoginForm form, BindingResult bindingResult,
-                                   HttpServletRequest request) {
+  public CurrentUser login(@Valid LoginForm form, BindingResult bindingResult,
+      HttpServletRequest request) {
     FormUtils.checkBindingErrors(bindingResult);
 
     try {
@@ -32,17 +34,33 @@ public class AuthController {
 
     var auth = (Authentication) request.getUserPrincipal();
     var user = (User) auth.getPrincipal();
-    return user.toCurrentUser();
+    return toCurrentUser(user);
   }
 
+  @Operation(summary = "Logout user.")
   @PostMapping("/logout")
-  public Map<String, Object> logout(HttpServletRequest request) throws ServletException {
+  public EmptyResponse logout(HttpServletRequest request) throws ServletException {
     request.logout();
-    return Map.of();
+    return new EmptyResponse();
   }
 
+  @Operation(summary = "Get current logged-in user.")
   @GetMapping("/current-user")
-  public Map<String, Object> current(@AuthenticationPrincipal User user) {
-    return user.toCurrentUser();
+  public CurrentUser current(@AuthenticationPrincipal User user) {
+    return toCurrentUser(user);
   }
+
+  private CurrentUser toCurrentUser(User user) {
+    return new CurrentUser(user.getId(), user.getUsername());
+  }
+
+  @Value
+  public static class CurrentUser {
+    int id;
+    String username;
+  }
+
+  @Value
+  public static class EmptyResponse {}
 }
+

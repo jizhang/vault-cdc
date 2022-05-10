@@ -11,6 +11,10 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>morph-web</artifactId>
 
+  <properties>
+    <springdoc.version>1.6.8</springdoc.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.ezalori.morph</groupId>
@@ -36,6 +40,16 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-security</artifactId>
+      <version>${springdoc.version}</version>
     </dependency>
   </dependencies>
 
