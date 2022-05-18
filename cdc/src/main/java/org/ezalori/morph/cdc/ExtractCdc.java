@@ -17,12 +17,12 @@ public class ExtractCdc {
     log.info("count: {}", tableRepo.count());
 
     var mysqlSource = MySqlSource.<String>builder()
-        .hostname("db")
+        .hostname("localhost")
         .port(3306)
         .databaseList("morph")
         .tableList("morph\\..+")
         .username("root")
-        .password("example")
+        .password("")
         .deserializer(new JsonDebeziumDeserializationSchema())
         .startupOptions(StartupOptions.latest())
         .build();
