@@ -1,4 +1,4 @@
-package org.ezalori.morph;
+package org.ezalori.morph.cdc;
 
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
@@ -20,9 +20,9 @@ import org.springframework.transaction.TransactionManager;
 @Configuration
 @EnableJdbcRepositories
 @PropertySource("classpath:application.properties")
-public class CdcApplication extends AbstractJdbcConfiguration {
+public class Application extends AbstractJdbcConfiguration {
   private static class Holder {
-    static final ApplicationContext INSTANCE = new AnnotationConfigApplicationContext(CdcApplication.class);
+    static final ApplicationContext INSTANCE = new AnnotationConfigApplicationContext(Application.class);
   }
 
   public static ApplicationContext getInstance() {

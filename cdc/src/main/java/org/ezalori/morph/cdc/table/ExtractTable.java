@@ -1,4 +1,4 @@
-package org.ezalori.morph.common.model;
+package org.ezalori.morph.cdc.table;
 
 import java.util.Date;
 import lombok.Data;

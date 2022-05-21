@@ -1,6 +1,5 @@
-package org.ezalori.morph.common.repository;
+package org.ezalori.morph.cdc.table;
 
-import org.ezalori.morph.common.model.ExtractTable;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;

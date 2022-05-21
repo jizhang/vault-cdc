@@ -1,6 +1,5 @@
-package org.ezalori.morph.common.repository;
+package org.ezalori.morph.cdc.db;
 
-import org.ezalori.morph.common.model.DatabaseInstance;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

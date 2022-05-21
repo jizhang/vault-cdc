@@ -6,13 +6,12 @@ import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.ezalori.morph.CdcApplication;
-import org.ezalori.morph.common.repository.ExtractTableRepository;
+import org.ezalori.morph.cdc.table.ExtractTableRepository;
 
 @Slf4j
 public class ExtractCdc {
   public static void main(String[] args) throws Exception {
-    var context = CdcApplication.getInstance();
+    var context = Application.getInstance();
     var tableRepo = context.getBean(ExtractTableRepository.class);
     log.info("count: {}", tableRepo.count());
 
