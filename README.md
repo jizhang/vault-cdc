@@ -3,17 +3,12 @@
 ![Build](https://github.com/ezalori/Morph/actions/workflows/build.yml/badge.svg)
 
 ```bash
-# install dependencies
-mvn install
-
-# checkstyle & spotbugs
+# Checkstyle & spotbugs
 mvn verify
 
-# build morph-web WAR file
-mvn clean package -am -pl web
+# Build morph-cdc JAR file
+mvn -am -pl cdc verify
 ```
-
-Import `morph-web` into IDE, run `org.ezalori.morph.WebApplication`, and it will start an API server listening on port `8081`.
 
 ## Setup CheckStyle in IDEA
 
