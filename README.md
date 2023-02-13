@@ -1,6 +1,6 @@
 # Morph
 
-[![Build Status](https://travis-ci.org/ezalori/Morph.svg?branch=master)](https://travis-ci.org/ezalori/Morph)
+![Build](https://github.com/ezalori/Morph/actions/workflows/build.yml/badge.svg)
 
 ```bash
 # install dependencies
