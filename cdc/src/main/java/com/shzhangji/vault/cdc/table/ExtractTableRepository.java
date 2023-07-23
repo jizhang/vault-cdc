@@ -1,4 +1,4 @@
-package org.ezalori.morph.cdc.table;
+package com.shzhangji.vault.cdc.table;
 
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;

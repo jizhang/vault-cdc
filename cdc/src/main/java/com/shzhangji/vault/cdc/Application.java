@@ -1,4 +1,4 @@
-package org.ezalori.morph.cdc;
+package com.shzhangji.vault.cdc;
 
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;

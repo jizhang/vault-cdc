@@ -1,12 +1,12 @@
-# Morph
+# Vault CDC
 
-![Build](https://github.com/ezalori/Morph/actions/workflows/build.yml/badge.svg)
+![Build](https://github.com/jizhang/vault-cdc/actions/workflows/build.yml/badge.svg)
 
 ```bash
 # Checkstyle & spotbugs
 mvn verify
 
-# Build morph-cdc JAR file
+# Build vault-cdc JAR file
 mvn -am -pl cdc verify
 ```
 

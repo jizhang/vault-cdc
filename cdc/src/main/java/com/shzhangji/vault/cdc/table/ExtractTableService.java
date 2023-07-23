@@ -1,8 +1,8 @@
-package org.ezalori.morph.cdc.table;
+package com.shzhangji.vault.cdc.table;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.ezalori.morph.cdc.db.DatabaseInstanceRepository;
+import com.shzhangji.vault.cdc.db.DatabaseInstanceRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;

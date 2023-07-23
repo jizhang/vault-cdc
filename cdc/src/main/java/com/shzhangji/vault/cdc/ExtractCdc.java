@@ -1,4 +1,4 @@
-package org.ezalori.morph.cdc;
+package com.shzhangji.vault.cdc;
 
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
@@ -6,7 +6,7 @@ import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.ezalori.morph.cdc.table.ExtractTableRepository;
+import com.shzhangji.vault.cdc.table.ExtractTableRepository;
 
 @Slf4j
 public class ExtractCdc {
@@ -18,8 +18,8 @@ public class ExtractCdc {
     var mysqlSource = MySqlSource.<String>builder()
         .hostname("localhost")
         .port(3306)
-        .databaseList("morph")
-        .tableList("morph\\..+")
+        .databaseList("vault")
+        .tableList("vault\\..+")
         .username("root")
         .password("")
         .deserializer(new JsonDebeziumDeserializationSchema())

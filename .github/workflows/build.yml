@@ -17,5 +17,5 @@ jobs:
         if: github.ref == 'refs/heads/master'
         with:
           name: jar
-          path: cdc/target/morph-cdc-1.0-SNAPSHOT.jar
+          path: cdc/target/vault-cdc-0.0.1-SNAPSHOT.jar
           retention-days: 5

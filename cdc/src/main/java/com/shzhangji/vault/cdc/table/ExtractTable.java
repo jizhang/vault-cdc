@@ -1,4 +1,4 @@
-package org.ezalori.morph.cdc.table;
+package com.shzhangji.vault.cdc.table;
 
 import java.util.Date;
 import lombok.Data;
