@@ -6,15 +6,10 @@ import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import com.shzhangji.vault.cdc.table.ExtractTableRepository;
 
 @Slf4j
 public class ExtractCdc {
   public static void main(String[] args) throws Exception {
-    var context = Application.getInstance();
-    var tableRepo = context.getBean(ExtractTableRepository.class);
-    log.info("count: {}", tableRepo.count());
-
     var mysqlSource = MySqlSource.<String>builder()
         .hostname("localhost")
         .port(3306)
