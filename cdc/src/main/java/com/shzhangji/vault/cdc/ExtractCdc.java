@@ -1,5 +1,7 @@
 package com.shzhangji.vault.cdc;
 
+import com.shzhangji.vault.cdc.extractconfig.ExtractConfigCache;
+import com.shzhangji.vault.cdc.inject.CdcInjector;
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
@@ -10,6 +12,10 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 @Slf4j
 public class ExtractCdc {
   public static void main(String[] args) throws Exception {
+    var injector = CdcInjector.getInjector();
+    var cache = injector.getInstance(ExtractConfigCache.class);
+    cache.close();
+
     var mysqlSource = MySqlSource.<String>builder()
         .hostname("localhost")
         .port(3306)
