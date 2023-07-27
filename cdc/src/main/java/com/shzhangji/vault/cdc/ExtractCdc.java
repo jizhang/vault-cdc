@@ -1,7 +1,9 @@
 package com.shzhangji.vault.cdc;
 
-import com.shzhangji.vault.cdc.extractconfig.ExtractConfigCache;
-import com.shzhangji.vault.cdc.inject.CdcInjector;
+import com.shzhangji.vault.etl.EtlInjector;
+import com.shzhangji.vault.etl.extractconfig.ExtractConfigCache;
+import com.shzhangji.vault.etl.extractconfig.TenantId;
+import com.shzhangji.vault.etl.sourcetable.SourceTable;
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
@@ -12,9 +14,14 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 @Slf4j
 public class ExtractCdc {
   public static void main(String[] args) throws Exception {
-    var injector = CdcInjector.getInjector();
+    var injector = EtlInjector.getInjector();
     var cache = injector.getInstance(ExtractConfigCache.class);
-    cache.close();
+    cache.initialize(TenantId.VAULT);
+    var list = cache.getList(new SourceTable(1, "vault", "t_user"));
+    if (list.isEmpty()) {
+      cache.close();
+      throw new IllegalStateException("Source table not found");
+    }
 
     var mysqlSource = MySqlSource.<String>builder()
         .hostname("localhost")
