@@ -9,7 +9,10 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <modules>
+    <module>common</module>
+    <module>etl</module>
     <module>cdc</module>
+    <module>canal</module>
   </modules>
 
   <properties>
