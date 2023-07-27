@@ -17,6 +17,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.shzhangji.vault</groupId>
+      <artifactId>vault-etl</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.inject</groupId>
       <artifactId>guice</artifactId>
     </dependency>
