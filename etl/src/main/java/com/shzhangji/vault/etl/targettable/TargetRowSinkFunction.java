@@ -16,7 +16,9 @@ import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 
 @Slf4j
 @RequiredArgsConstructor
-public class TargetRowSinkFunction extends RichSinkFunction<TargetRow> implements CheckpointedFunction {
+public class TargetRowSinkFunction extends RichSinkFunction<TargetRow>
+    implements CheckpointedFunction {
+
   private static final long TABLE_BUFFER_EXPIRE_MILLIS = TimeUnit.DAYS.toMillis(1);
 
   private final TargetRowSinkOptions options;
@@ -37,7 +39,8 @@ public class TargetRowSinkFunction extends RichSinkFunction<TargetRow> implement
     checkFlushException();
 
     var targetTable = new TargetTable(value.getDatabase(), value.getTable());
-    var tableBuffer = tableBuffers.computeIfAbsent(targetTable, k -> new TableBuffer(k, dataSource, options));
+    var tableBuffer = tableBuffers.computeIfAbsent(
+        targetTable, k -> new TableBuffer(k, dataSource, options));
     tableBuffer.addRow(value);
   }
 
@@ -66,7 +69,8 @@ public class TargetRowSinkFunction extends RichSinkFunction<TargetRow> implement
 
   private void createDataSource(int subtaskIndex) {
     dataSource = new HikariDataSource();
-    dataSource.setPoolName(String.format("TargetRowSink-%d-%d", options.getInstanceId(), subtaskIndex));
+    dataSource.setPoolName(String.format("TargetRowSink-%d-%d",
+        options.getInstanceId(), subtaskIndex));
     dataSource.setJdbcUrl(options.getUrl());
     dataSource.setUsername(options.getUsername());
     dataSource.setPassword(options.getPassword());
@@ -105,7 +109,8 @@ public class TargetRowSinkFunction extends RichSinkFunction<TargetRow> implement
     checkFlushException();
     tableBuffers.values().forEach(TableBuffer::flush);
     tableBuffers.entrySet().removeIf(entry -> {
-      if (System.currentTimeMillis() - entry.getValue().getLastUsed() >= TABLE_BUFFER_EXPIRE_MILLIS) {
+      long sinceLastUsed = System.currentTimeMillis() - entry.getValue().getLastUsed();
+      if (sinceLastUsed >= TABLE_BUFFER_EXPIRE_MILLIS) {
         log.info("Table buffer of {} is expired.", entry.getKey());
         return true;
       }

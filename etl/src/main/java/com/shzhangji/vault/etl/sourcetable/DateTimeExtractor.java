@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class DateTimeExtractor implements PartitionExtractor {
-  private static final DateTimeFormatter INPUT_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private static final DateTimeFormatter INPUT_PATTERN =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   private static final DateTimeFormatter OUTPUT_PATTERN = DateTimeFormatter.ofPattern("yyyyMMdd");
 
   private final String inputColumn;

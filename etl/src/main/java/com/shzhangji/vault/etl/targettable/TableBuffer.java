@@ -27,8 +27,8 @@ public class TableBuffer {
 
   public void addRow(TargetRow row) {
     var primaryKeyValues = row.getPrimaryKeys().stream()
-      .map(key -> row.getColumns().get(key))
-      .collect(Collectors.toList());
+        .map(key -> row.getColumns().get(key))
+        .collect(Collectors.toList());
 
     reducedBuffer.put(primaryKeyValues, row);
     if (reducedBuffer.size() >= options.getMaxRows()) {
@@ -53,6 +53,8 @@ public class TableBuffer {
         case DELETE:
           deleteRows.add(row);
           break;
+        default:
+          throw new IllegalArgumentException("Invalid row kind");
       }
     }
 
@@ -122,40 +124,43 @@ public class TableBuffer {
     var columnNames = List.copyOf(rows.get(0).getColumns().keySet());
 
     var columnNamesExpr = columnNames.stream()
-      .map(key -> "`" + key + "`")
-      .collect(Collectors.joining(", "));
+        .map(key -> "`" + key + "`")
+        .collect(Collectors.joining(", "));
 
     var valuesExpr = rows.stream()
-      .map(row -> "(" + generateColumnValuesExpr(columnNames, row.getColumns()) + ")")
-      .collect(Collectors.joining(","));
+        .map(row -> "(" + generateColumnValuesExpr(columnNames, row.getColumns()) + ")")
+        .collect(Collectors.joining(","));
 
     return String.format("REPLACE INTO `%s`.`%s` (%s) VALUES %s",
-      table.getDatabase(), table.getTable(), columnNamesExpr, valuesExpr);
+        table.getDatabase(), table.getTable(), columnNamesExpr, valuesExpr);
   }
 
   protected String generateDeleteSql(List<String> primaryKeys) {
     var where = primaryKeys.stream()
-      .map(key -> "`" + key + "` = ?")
-      .collect(Collectors.joining(" AND "));
-    return String.format("DELETE FROM `%s`.`%s` WHERE %s", table.getDatabase(), table.getTable(), where);
+        .map(key -> "`" + key + "` = ?")
+        .collect(Collectors.joining(" AND "));
+    return String.format("DELETE FROM `%s`.`%s` WHERE %s",
+        table.getDatabase(), table.getTable(), where);
   }
 
-  protected String generateColumnValuesExpr(List<String> columnNames, Map<String, String> columnMap) {
+  protected String generateColumnValuesExpr(
+      List<String> columnNames, Map<String, String> columnMap) {
+
     return columnNames.stream()
-      .map(columnMap::get)
-      .map(value -> {
-        if (value == null) {
-          return "NULL";
-        }
-        return "'" + escape(value) +  "'";
-      })
-      .collect(Collectors.joining(", "));
+        .map(columnMap::get)
+        .map(value -> {
+          if (value == null) {
+            return "NULL";
+          }
+          return "'" + escape(value) +  "'";
+        })
+        .collect(Collectors.joining(", "));
   }
 
   protected String escape(String value) {
     return value.replace("\\", "\\\\")
-      .replace("'", "\\'")
-      .replace("\r", "\\r")
-      .replace("\n", "\\n");
+        .replace("'", "\\'")
+        .replace("\r", "\\r")
+        .replace("\n", "\\n");
   }
 }
