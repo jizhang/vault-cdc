@@ -59,17 +59,20 @@ public class ExtractConfig {
       case 1:
         Preconditions.checkArgument(StringUtils.isNoneEmpty(row.getPartitionInputColumn()));
         Preconditions.checkArgument(StringUtils.isNoneEmpty(row.getPartitionOutputColumn()));
-        config.partitionExtractor = new DateTimeExtractor(row.getPartitionInputColumn(), row.getPartitionOutputColumn());
+        config.partitionExtractor = new DateTimeExtractor(
+            row.getPartitionInputColumn(), row.getPartitionOutputColumn());
         break;
 
       case 2:
         Preconditions.checkNotNull(config.getSourceTableRegex());
         Preconditions.checkArgument(StringUtils.isNoneEmpty(row.getPartitionOutputColumn()));
-        config.partitionExtractor = new TableRegexExtractor(config.getSourceTableRegex(), row.getPartitionOutputColumn());
+        config.partitionExtractor = new TableRegexExtractor(
+            config.getSourceTableRegex(), row.getPartitionOutputColumn());
         break;
 
       default:
-        throw new IllegalArgumentException("Partition type " + row.getPartitionType() + " is not implemented.");
+        throw new IllegalArgumentException(
+            "Partition type " + row.getPartitionType() + " is not implemented.");
     }
 
     config.ignoreDelete = row.isIgnoreDelete();

@@ -16,7 +16,8 @@ public class DbInstanceRow {
   private String database;
 
   public void sink(DataStream<TargetRow> targetRows) {
-    var targetJdbcUrl = String.format("jdbc:mysql://%s:%d/%s?useUnicode=true&characterEncoding=UTF-8",
+    var targetJdbcUrl = String.format(
+        "jdbc:mysql://%s:%d/%s?useUnicode=true&characterEncoding=UTF-8",
         host, port, database);
 
     var sinkOptions = TargetRowSinkOptions.builder()

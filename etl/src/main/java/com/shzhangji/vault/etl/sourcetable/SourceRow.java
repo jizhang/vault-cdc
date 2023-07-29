@@ -35,7 +35,8 @@ public class SourceRow {
       if (rowKind == RowKind.DELETE) {
         targetColumns.keySet().removeIf(key -> !primaryKeys.contains(key));
       } else {
-        targetColumns.keySet().removeIf(key -> !primaryKeys.contains(key) && !config.getExtractColumns().contains(key));
+        targetColumns.keySet().removeIf(
+            key -> !primaryKeys.contains(key) && !config.getExtractColumns().contains(key));
       }
 
       return Stream.of(new TargetRow(

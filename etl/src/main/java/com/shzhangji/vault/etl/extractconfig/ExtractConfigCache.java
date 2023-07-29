@@ -131,22 +131,27 @@ public class ExtractConfigCache implements Closeable {
     DbInstanceRow instance;
     try (var session = sessionFactory.openSession()) {
       var mapper = session.getMapper(DbInstanceMapper.class);
-      instance = mapper.get(instanceId)
-          .orElseThrow(() -> new IllegalArgumentException("Target instance [" + instanceId + "] not found."));
+      instance = mapper.get(instanceId).orElseThrow(
+          () -> new IllegalArgumentException("Target instance [" + instanceId + "] not found."));
     }
 
     try (var conn = getConnectionForInstance(instance)) {
       for (var config : configs) {
-        var columns = getColumnsFromInstance(conn, config.getTargetDatabase(), config.getTargetTable());
+        var columns = getColumnsFromInstance(
+            conn, config.getTargetDatabase(), config.getTargetTable());
         config.setExtractColumns(columns);
-        log.info("Fix extract columns for {}.{} {}", config.getTargetDatabase(), config.getTargetTable(), columns);
+        log.info("Fix extract columns for {}.{} {}",
+            config.getTargetDatabase(), config.getTargetTable(), columns);
       }
     } catch (SQLException e) {
-      throw new RuntimeException("Fail to get columns from target instance [" + instanceId + "].", e);
+      throw new RuntimeException(
+          "Fail to get columns from target instance [" + instanceId + "].", e);
     }
   }
 
-  private List<String> getColumnsFromInstance(Connection conn, String database, String table) throws SQLException {
+  private List<String> getColumnsFromInstance(Connection conn, String database, String table)
+      throws SQLException {
+
     var sql = String.format("DESC `%s`.`%s`", database, table);
     var columns = new ArrayList<String>();
     try (var stmt = conn.createStatement(); var rs = stmt.executeQuery(sql)) {
