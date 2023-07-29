@@ -24,12 +24,13 @@ public class ExtractCdcBase {
 
   public void run() throws Exception {
     var injector = EtlInjector.getInjector();
-    var props = injector.getInstance(Properties.class);
     instanceService = injector.getInstance(DbInstanceService.class);
 
     env = StreamExecutionEnvironment.getExecutionEnvironment();
     env.setStateBackend(new HashMapStateBackend());
     env.enableCheckpointing(30_000);
+
+    var props = injector.getInstance(Properties.class);
     env.getCheckpointConfig().setCheckpointStorage(
         props.getProperty("flink.checkpoints.dir") + "/" + options.getJobName());
 
@@ -46,30 +47,33 @@ public class ExtractCdcBase {
   }
 
   private DataStream<SourceRow> createSourceRows() {
-    Preconditions.checkArgument(options.getSourceInstanceList().size() > 0, "Source instance list cannot be empty.");
+    Preconditions.checkArgument(!options.getSourceInstanceList().isEmpty(),
+        "Source instance list cannot be empty.");
 
     var sourceInstanceCount = options.getSourceInstanceList().stream()
-      .map(SourceInstance::getInstanceId)
-      .distinct()
-      .count();
-    Preconditions.checkArgument(sourceInstanceCount == options.getSourceInstanceList().size(), "Duplicate source instances are not allowed.");
+        .map(SourceInstance::getInstanceId)
+        .distinct()
+        .count();
+    Preconditions.checkArgument(sourceInstanceCount == options.getSourceInstanceList().size(),
+        "Duplicate source instances are not allowed.");
 
     DataStream<SourceRow> dataStream = null;
     for (var sourceInstance : options.getSourceInstanceList()) {
       var sourceInstanceRow = instanceService.getInstance(sourceInstance.getInstanceId());
       var source = MySqlSource.<SourceRow>builder()
-        .hostname(sourceInstanceRow.getHost())
-        .port(sourceInstanceRow.getPort())
-        .username(sourceInstanceRow.getUsername())
-        .password(sourceInstanceRow.getPassword())
-        .databaseList(sourceInstance.getDatabaseList().toArray(String[]::new))
-        .tableList(sourceInstance.getTableList().toArray(String[]::new))
-        .deserializer(new SourceRowDeserializer(sourceInstance.getInstanceId()))
-        .startupOptions(StartupOptions.latest())
-        .build();
+          .hostname(sourceInstanceRow.getHost())
+          .port(sourceInstanceRow.getPort())
+          .username(sourceInstanceRow.getUsername())
+          .password(sourceInstanceRow.getPassword())
+          .databaseList(sourceInstance.getDatabaseList().toArray(String[]::new))
+          .tableList(sourceInstance.getTableList().toArray(String[]::new))
+          .deserializer(new SourceRowDeserializer(sourceInstance.getInstanceId()))
+          .startupOptions(StartupOptions.latest())
+          .build();
 
-      var sourceRows = env.fromSource(source, WatermarkStrategy.noWatermarks(), "mysql-" + sourceInstance.getInstanceId())
-        .setParallelism(1);
+      var sourceRows = env.fromSource(
+              source, WatermarkStrategy.noWatermarks(), "mysql-" + sourceInstance.getInstanceId())
+          .setParallelism(1);
 
       if (dataStream == null) {
         dataStream = sourceRows;

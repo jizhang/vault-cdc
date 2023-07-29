@@ -54,7 +54,7 @@ public class TableBuffer {
           deleteRows.add(row);
           break;
         default:
-          throw new IllegalStateException("Invalid row kind");
+          throw new IllegalArgumentException("Invalid row kind");
       }
     }
 

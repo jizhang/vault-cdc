@@ -25,7 +25,8 @@ import org.apache.kafka.connect.source.SourceRecord;
 
 @RequiredArgsConstructor
 public class SourceRowDeserializer implements DebeziumDeserializationSchema<SourceRow> {
-  private static final DateTimeFormatter dfDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private static final DateTimeFormatter dfDateTime =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   private static final DateTimeFormatter dfDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   private final int instanceId;
@@ -40,7 +41,9 @@ public class SourceRowDeserializer implements DebeziumDeserializationSchema<Sour
     var database = source.getString("db");
     var table = source.getString("table");
 
-    var row = rowKind == RowKind.DELETE ? value.getStruct(Envelope.FieldName.BEFORE) : value.getStruct(Envelope.FieldName.AFTER);
+    var row = rowKind == RowKind.DELETE
+        ? value.getStruct(Envelope.FieldName.BEFORE)
+        : value.getStruct(Envelope.FieldName.AFTER);
     var columns = new HashMap<String, String>();
     for (var field : row.schema().fields()) {
       var fieldValue = row.get(field);
@@ -86,9 +89,10 @@ public class SourceRowDeserializer implements DebeziumDeserializationSchema<Sour
       case MicroTime.SCHEMA_NAME:
         var duration = Duration.ofMillis((Long) value / 1000);
         return String.format("%02d:%02d:%02d",
-          duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
-    }
+            duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
 
-    return value.toString();
+      default:
+        return value.toString();
+    }
   }
 }
