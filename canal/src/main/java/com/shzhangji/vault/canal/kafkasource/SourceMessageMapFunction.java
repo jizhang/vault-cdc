@@ -20,7 +20,8 @@ import org.apache.flink.util.Collector;
 
 @RequiredArgsConstructor
 public class SourceMessageMapFunction extends RichFlatMapFunction<SourceMessage, TargetRow> {
-  private static final Pattern ALLOW_EMPTY = Pattern.compile("(CHAR|TEXT|BLOB|BINARY)", Pattern.CASE_INSENSITIVE);
+  private static final Pattern ALLOW_EMPTY =
+      Pattern.compile("(CHAR|TEXT|BLOB|BINARY)", Pattern.CASE_INSENSITIVE);
 
   private final int tenantId;
 
@@ -35,7 +36,7 @@ public class SourceMessageMapFunction extends RichFlatMapFunction<SourceMessage,
 
   @Override
   public void close() throws Exception {
-     extractConfigCache.close();
+    extractConfigCache.close();
   }
 
   @Override
@@ -52,7 +53,9 @@ public class SourceMessageMapFunction extends RichFlatMapFunction<SourceMessage,
   /**
    * One entry may contain multiple source rows.
    */
-  private Stream<TargetRow> createRowsFromChange(CanalEntry.RowChange rowChange, SourceTable sourceTable, List<ExtractConfig> extractConfigs) {
+  private Stream<TargetRow> createRowsFromChange(
+      CanalEntry.RowChange rowChange, SourceTable sourceTable, List<ExtractConfig> extractConfigs) {
+
     var rowKindOpt = getRowKind(rowChange.getEventType());
     if (rowKindOpt.isEmpty()) {
       return Stream.empty();

@@ -8,7 +8,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 public class KafkaRecordDeserializer implements KafkaRecordDeserializationSchema<KafkaRecord> {
   @Override
-  public void deserialize(ConsumerRecord<byte[], byte[]> record, Collector<KafkaRecord> out) throws IOException {
+  public void deserialize(ConsumerRecord<byte[], byte[]> record, Collector<KafkaRecord> out)
+      throws IOException {
+
     out.collect(new KafkaRecord(record.topic(), record.value()));
   }
 
